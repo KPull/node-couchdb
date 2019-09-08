@@ -168,7 +168,7 @@ class NodeCouchDB {
         }
 
         const requestOpts = {
-            url: `${this._baseUrl}/${dbName}/${uri}`,
+            url: `${this._baseUrl}/${dbName}/${encodeURIComponent(uri)}`,
             qs: query
         };
 
@@ -298,9 +298,13 @@ class NodeCouchDB {
         return this._requestWrapped({
             method: 'PUT',
             url: `${this._baseUrl}/${dbName}/${encodeURIComponent(docId)}/${encodeURIComponent(attachmentName)}`,
+            headers: {
+                'Content-type': 'text/plain'
+            },
             qs: {
                 rev: docRevision
             },
+            json: false,
             body: body
         }).then((_ref7) => {
             let res = _ref7.res,
@@ -311,7 +315,7 @@ class NodeCouchDB {
             }
 
             return {
-                data: body,
+                data: JSON.parse(body),
                 headers: res.headers,
                 status: res.statusCode
             };

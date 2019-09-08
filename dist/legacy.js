@@ -205,7 +205,7 @@ var NodeCouchDB = function () {
             }
 
             var requestOpts = {
-                url: this._baseUrl + '/' + dbName + '/' + uri,
+                url: this._baseUrl + '/' + dbName + '/' + encodeURIComponent(uri),
                 qs: query
             };
 
@@ -348,9 +348,13 @@ var NodeCouchDB = function () {
             return this._requestWrapped({
                 method: 'PUT',
                 url: this._baseUrl + '/' + dbName + '/' + encodeURIComponent(docId) + '/' + encodeURIComponent(attachmentName),
+                headers: {
+                    'Content-type': 'text/plain'
+                },
                 qs: {
                     rev: docRevision
                 },
+                json: false,
                 body: body
             }).then(function (_ref7) {
                 var res = _ref7.res,
@@ -361,7 +365,7 @@ var NodeCouchDB = function () {
                 }
 
                 return {
-                    data: body,
+                    data: JSON.parse(body),
                     headers: res.headers,
                     status: res.statusCode
                 };
