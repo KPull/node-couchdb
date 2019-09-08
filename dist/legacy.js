@@ -347,7 +347,7 @@ var NodeCouchDB = function () {
         value: function insertAttachment(dbName, docId, attachmentName, body, docRevision) {
             return this._requestWrapped({
                 method: 'PUT',
-                url: this._baseUrl + '/' + dbName + '/' + encodeURIComponent(docId) + '/attachment',
+                url: this._baseUrl + '/' + dbName + '/' + encodeURIComponent(docId) + '/' + encodeURIComponent(attachmentName),
                 qs: {
                     rev: docRevision
                 },
