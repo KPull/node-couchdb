@@ -257,7 +257,7 @@ var NodeCouchDB = function () {
 
             var requestOpts = {
                 method: 'GET',
-                url: this._baseUrl + '/' + dbName + '/' + docId + '/' + attachmentName,
+                url: this._baseUrl + '/' + dbName + '/' + encodeURIComponent(docId) + '/' + encodeURIComponent(attachmentName),
                 qs: {
                     rev: docRevision
                 }
